@@ -106,11 +106,11 @@ const WeddingPackages = () => {
               {/* Contenido del Paquete */}
               <div className="md:w-1/2 p-6 flex flex-col justify-center">
                 <h3 className="text-3xl font-bold text-gray-800">{pkg.title}</h3>
-                <p className="text-lg text-blue-600 font-semibold">{pkg.duration}</p>
+                <p className="text-lg text-primary font-semibold">{pkg.duration}</p>
                 <ul className="mt-4 space-y-2">
                   {pkg.details.map((detail, i) => (
                     <li key={i} className="text-gray-600 flex items-start">
-                      <span className="text-blue-500 mr-2">•</span> {detail}
+                      <span className="text-primary mr-2">•</span> {detail}
                     </li>
                   ))}
                 </ul>

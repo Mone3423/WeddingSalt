@@ -100,7 +100,7 @@ const WeddingServices = () => {
                 <ul className="mt-4 space-y-2">
                   {service.details.map((detail, i) => (
                     <li key={i} className="text-gray-600 flex items-start">
-                      <span className="text-blue-500 mr-2">•</span> {detail}
+                      <span className="text-primary mr-2">•</span> {detail}
                     </li>
                   ))}
                 </ul>

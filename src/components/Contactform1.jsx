@@ -25,7 +25,7 @@ export default function Contact1() {
   const handleSubmit = (e) => {
     e.preventDefault();
     emailjs
-      .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData, "YOUR_PUBLIC_KEY")
+      .send("service_7mfc1kj", "template_k44tjft", formData, "RTqHV4710_Yu0dGrN")
       .then(
         () => alert("Message sent successfully! ✅"),
         (error) => alert("Error sending message. ❌ Try again.")
@@ -103,12 +103,9 @@ export default function Contact1() {
 
         {/* Social Media Links */}
         <div className="mt-6 text-center">
-          <h3 className="text-lg font-semibold">Follow us on social media 🌍</h3>
+          <h3 className="text-lg font-semibold">Contact us </h3>
           <div className="flex justify-center space-x-4 mt-2">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <img src="https://cdn-icons-png.flaticon.com/512/1409/1409946.png" alt="Instagram" className="w-8" />
-            </a>
-            <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/71948121" target="_blank" rel="noopener noreferrer">
               <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" className="w-8" />
             </a>
           </div>

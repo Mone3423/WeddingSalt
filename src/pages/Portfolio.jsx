@@ -1,67 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Lista de imágenes del portafolio
 const portfolioImages = [
-  ,
-  "WeddingSalardeUyuni38",
-  "WeddingSalardeUyuni20",
-  "WeddingSalardeUyuni21",
-  "WeddingSalardeUyuni22",
-  "WeddingSalardeUyuni37",
-  "WeddingSalardeUyuni24",
-  "WeddingSalardeUyuni25",
-  "WeddingSalardeUyuni26",
-  "WeddingSalardeUyuni27",
-  "WeddingSalardeUyuni29",
-  "WeddingSalardeUyuni28",
-  "WeddingSalardeUyuni30",
-  "WeddingSalardeUyuni31",
-  "WeddingSalardeUyuni32",
-  "WeddingSalardeUyuni34",
-  "WeddingSalardeUyuni36",
-  "WeddingSalardeUyuni44",
-  "WeddingSalardeUyuni45",
-  "WeddingSalardeUyuni46",
-  "WeddingSalardeUyuni47",
-  "WeddingSalardeUyuni48",
-  "WeddingSalardeUyuni49",
-  "WeddingSalardeUyuni50",
-  "WeddingUyuniSaltWalt9",
-  "WeddingUyuniSaltWalt10",
-  "WeddingUyuniSaltWalt11",
-  "WeddingUyuniSaltWalt12",
-  "WeddingUyuniSaltWalt13",
-  "WeddingUyuniSaltWalt14",
-  "WeddingUyuniSaltWalt15",
-  "WeddingUyuniSaltWalt16",
-  "WeddingUyuniSaltWalt17",
-  "WeddingUyuniSaltWalt18",
-  "WeddingUyuniSaltWalt19",
-  "WeddingUyuniSaltWalt20",
-  "WeddingUyuniSaltWalt21",
-  "WeddingUyuniSaltWalt22",
-  "WeddingUyuniSaltWalt23",
-  "WeddingUyuniSaltWalt24",
-  "WeddingUyuniSaltWalt25",
-  "WeddingUyuniSaltWalt26",
-  "WeddingUyuniSaltWalt27",
-  "WeddingUyuniSaltWalt28",
-  "WeddingUyuniSaltWalt29",
-  "WeddingUyuniSaltWalt30",
-  "WeddingUyuniSaltWalt31",
-  "WeddingUyuniSaltWalt32",
-  "WeddingUyuniSaltWalt33",
-  "WeddingUyuniSaltWalt34",
-  "WeddingUyuniSaltWalt35",
-  "WeddingUyuniSaltWalt36",
-  "WeddingUyuniSaltWalt37",
-  "WeddingUyuniSaltWalt38",
+  "WeddingSalardeUyuni38", "WeddingSalardeUyuni20", "WeddingSalardeUyuni21",
+  "WeddingSalardeUyuni22", "WeddingSalardeUyuni37", "WeddingSalardeUyuni24",
+  "WeddingSalardeUyuni25", "WeddingSalardeUyuni26", "WeddingSalardeUyuni27",
+  "WeddingSalardeUyuni29", "WeddingSalardeUyuni28", "WeddingSalardeUyuni30",
+  "WeddingSalardeUyuni31", "WeddingSalardeUyuni32", "WeddingSalardeUyuni34",
+  "WeddingSalardeUyuni36", "WeddingSalardeUyuni44", "WeddingSalardeUyuni45",
+  "WeddingSalardeUyuni46", "WeddingSalardeUyuni47", "WeddingSalardeUyuni48",
+  "WeddingSalardeUyuni49", "WeddingSalardeUyuni50", "WeddingUyuniSaltWalts9",
+  "WeddingUyuniSaltWalts10", "WeddingUyuniSaltWalts11", "WeddingUyuniSaltWalts12",
+  "WeddingUyuniSaltWalts13", "WeddingUyuniSaltWalts14", "WeddingUyuniSaltWalts15",
+  "WeddingUyuniSaltWalts16", "WeddingUyuniSaltWalts17", "WeddingUyuniSaltWalts18",
+  "WeddingUyuniSaltWalts19", "WeddingUyuniSaltWalts20", "WeddingUyuniSaltWalts21",
+  "WeddingUyuniSaltWalts22", "WeddingUyuniSaltWalts23", "WeddingUyuniSaltWalts24"
 ];
 
 const Portfolio = () => {
-  const [selectedImage, setSelectedImage] = useState(null); // Imagen seleccionada
-  const [currentIndex, setCurrentIndex] = useState(0); // Índice actual en el slider
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   // Función para abrir el slider
   const openSlider = (index) => {
@@ -74,13 +36,36 @@ const Portfolio = () => {
     setSelectedImage(null);
   };
 
-  // Funciones para navegar entre imágenes
+  // Función para navegar con teclado
+  const handleKeyDown = useCallback((e) => {
+    if (!selectedImage) return;
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "Escape") closeSlider();
+  }, [selectedImage]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  // Función para tocar en móviles (deslizar izquierda/derecha)
+  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    if (touchStart - touchEnd > 50) nextImage(); // Deslizar izquierda (siguiente)
+    if (touchEnd - touchStart > 50) prevImage(); // Deslizar derecha (anterior)
+  };
+
+  // Función para avanzar de imagen
   const nextImage = () => {
     const newIndex = (currentIndex + 1) % portfolioImages.length;
     setCurrentIndex(newIndex);
     setSelectedImage(portfolioImages[newIndex]);
   };
 
+  // Función para retroceder de imagen
   const prevImage = () => {
     const newIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
     setCurrentIndex(newIndex);
@@ -94,7 +79,7 @@ const Portfolio = () => {
         <p className="mt-4 text-lg">Discover the magic of Salar de Uyuni weddings through our stunning gallery.</p>
       </div>
 
-      {/* Grid de imágenes */}
+      {/* Grid de imágenes con Lazy Loading */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
         {portfolioImages.map((image, index) => (
           <motion.div
@@ -102,20 +87,21 @@ const Portfolio = () => {
             className="overflow-hidden rounded-lg shadow-lg cursor-pointer"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
+            transition={{ duration: 0.5, delay: index * 0.05 }}
             viewport={{ once: true }}
-            onClick={() => openSlider(index)} // Abre la imagen al hacer clic
+            onClick={() => openSlider(index)}
           >
             <img
               src={`/images/${image}.jpg`}
               alt={`Portfolio ${index + 1}`}
               className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500"
+              loading="lazy" // Lazy Loading para optimización
             />
           </motion.div>
         ))}
       </div>
 
-      {/* Modal de Slider (Aparece si hay una imagen seleccionada) */}
+      {/* Modal de Slider con swipe y navegación por teclado */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -123,8 +109,10 @@ const Portfolio = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            {/* Contenedor de la imagen */}
             <motion.div
               className="relative max-w-4xl mx-auto p-4"
               initial={{ scale: 0.8 }}
@@ -154,6 +142,18 @@ const Portfolio = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Wedding Packages (Resumen con enlace) */}
+      <section className="py-16 bg-white text-center">
+          <h2 className="text-4xl font-bold text-gray-800">Wedding Packages</h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Choose from our specially designed wedding packages, from intimate elopements to luxurious celebrations.
+          </p>
+          <Link to="/packages">
+            <button className="mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary transition-all">
+              Explore Packages
+            </button>
+          </Link>
+        </section>
     </div>
   );
 };

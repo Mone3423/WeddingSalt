@@ -8,7 +8,7 @@ const blogs = [
   {
     id: 1,
     title: "Your Dream Wedding on the Salt Flats: A Step-by-Step Guide",
-    image: "https://source.unsplash.com/800x400/?wedding,bolivia",
+    image: "/images/BodaenelsalardeUyuni36.jpg",
     date: "February 5, 2024",
     content: `
       Imagine exchanging vows on a vast white canvas that stretches as far as the eye can see, where sky and earth merge in perfect harmony. 
@@ -48,7 +48,7 @@ Consider incorporating Bolivian traditions to make your ceremony truly special.
   { 
   id: 2,
   title: "Salt Flat Weddings: Choosing Between Ethereal White or Mirrored Magic",
-  image: "https://source.unsplash.com/800x400/?bride,groom",
+  image: "/images/BodaenelSalardeUyuni (11) 3.jpg",
   date: "January 20, 2024",
   content: `
       Salar de Uyuni offers two distinct yet equally breathtaking settings for your wedding, depending on when you visit.
@@ -76,7 +76,7 @@ Consider incorporating Bolivian traditions to make your ceremony truly special.
 {
   id: 3,
     title: "Blend Culture with Love: Bolivian Wedding Traditions for Your Salar de Uyuni Ceremony",
-      image: "https://source.unsplash.com/800x400/?wedding,tradition",
+      image: "images/WeddingUyuniSaltFlats (2) 34.jpg",
         date: "January 10, 2024",
           content: `
       Make your salt flat wedding truly unique by incorporating some beautiful Bolivian traditions. These customs will not only honor the local culture but also add depth and meaning to your celebration.
@@ -98,9 +98,9 @@ Consider incorporating Bolivian traditions to make your ceremony truly special.
       By weaving these traditions into your salt flat wedding, you'll create a rich, meaningful experience that honors the beautiful location and culture of Bolivia.
     `,
             images: [
-              "/images/WeddingUyuniSaltFlats (1) 17.jpg",
-              "/images/WeddingUyuniSaltFlats (2) 18.jpg",
-              "/images/WeddingUyuniSaltFlats (3) 19.jpg",
+              "/images/WeddingUyuniSaltFlats (2) 34.jpg",
+              "/images/WeddingUyuniSaltWalts10.jpg",
+              "/images/WeddingUyuniSaltFlats (14) 30.jpg",
             ],
   },
 ];
@@ -190,7 +190,7 @@ const BlogDetail = () => {
                 <h3 className="text-lg font-semibold text-gray-800">{recBlog.title}</h3>
                 <p className="text-sm text-gray-500">{recBlog.date}</p>
                 <p className="text-gray-600 mt-2">{recBlog.content.substring(0, 80)}...</p>
-                <span className="text-blue-600 font-semibold mt-2 inline-block hover:underline">Read More →</span>
+                <span className="text-primary font-semibold mt-2 inline-block hover:underline">Read More →</span>
               </div>
             </Link>
           ))}
