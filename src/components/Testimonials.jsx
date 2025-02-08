@@ -5,9 +5,9 @@ const testimonials = [
     id: 1,
     name: "Jonathan & Dakyo",
     images: [
-      "/images/testimonials/BodaenelsalardeUyuni35.jpg",
-      "/images/testimonials/BodaenelsalardeUyuni39.jpg",
-      "/images/testimonials/WeddingUyuniSaltWalts23.jpg",
+      "/images/testimonials/BodaenelSalardeUyuni35.jpg",
+      "/images/testimonials/BodaenelSalardeUyuni39.jpg",
+      "/images/testimonials/WeddingUyuniSaltWalts22.jpg",
     ],
     comment: "Our wedding in Uyuni was a dream come true. Thank you for making it unforgettable!"
   },
