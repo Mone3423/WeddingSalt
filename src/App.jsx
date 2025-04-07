@@ -13,15 +13,19 @@ import BlogDetailPage from "./pages/BlocgDetailPage"
 import Testimonials from "./components/TestimonialCard"
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop"; // Importamos el fix
+import LaPazPackages from "./pages/LaPazPackages"; // Importamos el fix
 
 function App() {
   return (
-    <div className="font-sans mt-16 bg-background ">
-      <Navbar />
+    <div className="font-sans mt-16 ">
+     
       <ScrollToTop /> {/* Agregamos el fix aquí */}
+      <Navbar />
       <Routes>
+        
         <Route path="/" element={<Home />} />
         <Route path="/packages" element={<WeddingPackages />} />
+        <Route path="/packages/lapaz" element={<LaPazPackages />} />
         <Route path="/services" element={<WeddingServices />} />
         <Route path="/services1" element={<WeddingServices1 />} />
         <Route path="/portfolio" element={<Portfolio />} />
@@ -30,6 +34,7 @@ function App() {
         <Route path="/contact1" element={<ContactForm1 />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
         <Route path="/testimonials/" element={<Testimonials />} />
+        
       </Routes>
       <WhatsAppButton /> {/* Botón flotante siempre visible */}
       <Footer />

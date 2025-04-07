@@ -1,12 +1,13 @@
-
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import SectionTitle from "../components/SectionTitle";
+import { useState, useEffect, useRef } from 'react';
+import ContactForm from "../components/ContactForm";
 
 const services = [
   {
-    title: "Customized Ceremonies",
     image: "/images/WeddingUyuniSaltFlats (9) 41.jpg",
+    title: "Customized Ceremonies",
     details: [
       "Intimate Elopements: For couples seeking a private, romantic experience.",
       "Traditional Ceremonies: Incorporating local Bolivian customs and rituals.",
@@ -47,69 +48,193 @@ const services = [
     ],
     description: "We work with top chefs who can create visually stunning dishes that complement the unique setting. From elegantly plated meals to interactive food stations, we ensure your wedding feast is as remarkable as its surroundings.",
   },
+]; // Mantener el array de servicios igual
+const serviceTitles = [
+  "Customized Ceremonies",
+  "Photography & Videography",
+  "Accommodation",
+  "Catering"
 ];
-
 const WeddingServices = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef });
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [
+    '/images/WeddingSalardeUyuni77.jpg',
+    '/images/WeddingUyuniSaltWalts17.jpg',
+    '/images/WeddingSalardeUyuni48.jpg'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
   return (
     <div className="bg-gray-100 text-gray">
-      {/* Hero Section */}
-      <section className="relative h-[500px] flex items-center justify-center text-center text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-80"
-          style={{ backgroundImage: "url('/images/WeddingSalardeUyuni77.jpg')" }}
-        ></div>
+      {/* Hero Section Mejorada */}
+      <motion.section className="relative h-screen -mt-16 flex items-center justify-center text-center overflow-hidden px-6 md:px-0">
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={currentImageIndex}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${heroImages[currentImageIndex]})`
+            }}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.9, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
+
+        {/* Overlay para mejor contraste */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Contenido animado */}
         <motion.div
-          className="relative z-10 max-w-2xl"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          className="relative z-10 text-white max-w-2xl p-6"
+          animate={{
+            y: ["0vh", "-20vh"],
+            x: ["0vw", "-30vw"],
+            scale: [1, 0.8],
+            opacity: 1,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 70,
+            damping: 20,
+            delay: 1,
+          }}
         >
-          <h1 className="text-5xl font-bold">Wedding Services</h1>
-          <p className="mt-4 text-lg">
+          <h1 className="text-white text-5xl md:text-7xl font-bold font-serif drop-shadow-[0_5px_20px_rgba(0,0,0,0.8)]">
+            WEDDING SERVICES
+          </h1>
+
+          <motion.p
+            className="mt-6 text-lg md:text-2xl p-4 rounded-lg backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+          >
             Making your Uyuni wedding an unforgettable experience.
-          </p>
+          </motion.p>
         </motion.div>
-      </section>
-
-      {/* Servicios */}
+      </motion.section>
       <div className="max-w-6xl mx-auto py-16 px-6">
-        <SectionTitle title="Our Services" />
 
-        <div className="space-y-12">
+
+        <div className="space-y-10">
           {services.map((service, index) => (
-            <motion.div
-              key={index}
-              className="relative bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              {/* Imagen a la izquierda en desktop, arriba en móvil */}
-              <div className="md:w-1/2">
-                <motion.img
+            <React.Fragment key={index}>
+              {/* Sección de Imagen Full Vertical */}
+              <motion.div
+                className="relative h-screen flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1.5 }}
+                viewport={{ once: true }}
+              >
+                <div className="absolute inset-0 bg-black/40 z-10 flex items-center justify-center">
+                  <motion.div
+                    className="text-center text-white max-w-4xl px-4"
+                    initial={{ y: 50, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 60 }}
+                  >
+                    <h4 className="text-3xl md:text-5xl font-serif mb-6 drop-shadow-2xl">
+                      {serviceTitles[index % 4]}
+                    </h4>
+                    <p className="text-lg md:text-xl italic">
+                      {service.details[0]}
+                    </p>
+                  </motion.div>
+                </div>
+                <img
                   src={service.image}
-                  alt={service.title}
-                  className="w-full h-64 md:h-full object-cover transition-transform duration-500 hover:scale-105"
+                  alt={`${service.title} full view`}
+                  className="w-full h-full object-cover absolute inset-0"
                 />
-              </div>
+              </motion.div>
 
-              {/* Contenido del Servicio */}
-              <div className="md:w-1/2 p-6 flex flex-col justify-center">
-                <h3 className="text-3xl font-bold text-gray-800">{service.title}</h3>
-                <ul className="mt-4 space-y-2">
-                  {service.details.map((detail, i) => (
-                    <li key={i} className="text-gray-600 flex items-start">
-                      <span className="text-primary mr-2">•</span> {detail}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-gray-700">{service.description}</p>
+              {/* Sección de Contenido Intercalado */}
+              <div className="max-w-7xl mx-auto py-16 px-6">
+                <motion.div
+                  className="relative group"
+                  initial={{
+                    opacity: 0,
+                    rotateY: 90,
+                    scale: 0.8,
+                    filter: "blur(4px)"
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    rotateY: 0,
+                    scale: 1,
+                    filter: "blur(0px)"
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 60,
+                    damping: 15,
+                  }}
+                  viewport={{ once: true, margin: "-20% 0px" }}
+                >
+                  <div className="relative bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row transform transition-all duration-500 group-hover:shadow-3xl">   {/* Imagen - Alternar lados según el índice */}
+                    <motion.div
+                      className={`md:w-1/2 overflow-hidden ${index % 2 === 0 ? "order-last" : ""
+                        }`}
+                      initial={{ scale: 1.1 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-64 md:h-full object-cover transform transition-transform duration-500 hover:scale-105"
+                      />
+                    </motion.div>
+
+                    {/* Contenido */}
+                    <motion.div
+                      className="md:w-1/2 p-8 flex flex-col justify-center"
+                      initial={{ x: index % 2 === 0 ? 50 : -50 }}
+                      whileInView={{ x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <h3 className="text-3xl font-bold text-gray-800 mb-4">
+                        {service.title}
+                      </h3>
+
+                      <ul className="space-y-3 mb-6">
+                        {service.details.map((detail, i) => (
+                          <li key={i} className="text-gray-600 flex items-start">
+                            <span className="text-primary mr-2">•</span> {detail}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <p className="text-gray-700 italic">
+                        {service.description}
+                      </p>
+                    </motion.div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
+            </React.Fragment>
           ))}
         </div>
       </div>
+      <ContactForm />
+      {/* Servicios (mantener igual) */}
+      {/* Sección de Servicios con Efectos Individuales */}
+
     </div>
   );
 };

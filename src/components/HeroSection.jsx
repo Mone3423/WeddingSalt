@@ -6,7 +6,7 @@ const HeroSection = () => {
     <section className="relative h-screen flex items-center justify-center text-center text-white">
       {/* Imagen de fondo */}
       <div
-  className="absolute inset-0 bg-cover bg-center opacity-80"
+  className="relative min-h-screen bg-cover bg-center"
   style={{ backgroundImage: "url('/images/edited/IMG_5480.jpg')" }}
 ></div>
 

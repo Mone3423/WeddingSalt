@@ -4,7 +4,7 @@
 
 /* Ajustes globales */
 body {
-  @apply bg-primary text-secondary font-sans;
+  @apply bg-[#f8eff2] text-secondary font-sans;
 }
 
 
@@ -18,4 +18,11 @@ a {
 
 button {
   @apply font-medium transition-transform transform hover:scale-105;
+}
+.nav-link {
+  @apply text-white hover:text-rose-600 transition-colors duration-300;
+}
+
+.dropdown-link {
+  @apply block px-6 py-3 text-gray-700 hover:bg-rose-50 hover:text-rose-700 transition-colors duration-200;
 }
