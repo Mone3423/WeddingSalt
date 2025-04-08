@@ -12,7 +12,7 @@ const PaymentInfo = () => {
                 {/* Sección de Forma de Pago */}
                 <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                        FORMA DE PAGO
+                    PAYMENT METHOD
                     </h2>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -30,7 +30,7 @@ const PaymentInfo = () => {
                             <div className="text-center">
                                 <div className="text-4xl font-bold text-primary mb-2">50%</div>
                                 <div className="text-sm text-gray-600 uppercase tracking-wider">
-                                    día del evento
+                                day of the event
                                 </div>
                             </div>
                         </div>
@@ -45,11 +45,11 @@ const PaymentInfo = () => {
                 {/* Sección de Plazo de Entrega */}
                 <div className="text-center">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                        PLAZO DE ENTREGA
+                    DELIVERY TIME
                     </h2>
                     <div className="text-6xl font-bold text-primary">40</div>
                     <div className="text-lg text-gray-600 uppercase tracking-wider mt-2">
-                        días
+                        days
                     </div>
                 </div>
             </div>

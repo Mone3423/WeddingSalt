@@ -146,10 +146,10 @@ const convertToUSD = (bs) => (bs / 12).toLocaleString('en-US', {
 });
 
 const addOns = [
-  { title: "Sesión Pre-Boda", priceBs: 850 },
-  { title: "Sesión Post-Boda", priceBs: 950 },
-  { title: "Hora Extra", priceBs: 700 },
-  { title: "Servicio de Dron", priceBs: 550 },
+  { title: "Pre-Wedding Session", priceBs: 850 },
+ { title: "Post-Wedding Session", priceBs: 950 },
+ { title: "Extra Hour", priceBs: 700 },
+ { title: "Drone Service", priceBs: 550 },
 ];
 
 const photoBooks = [
@@ -352,7 +352,7 @@ const LaPazPackages = () => {
       
       <div className="max-w-4xl mx-auto p-6 bg-red-50 min-h-screen">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          PERSONALIZA TUS PAQUETES
+        CUSTOMIZE YOUR PACKAGES
         </h2>
 
         {/* Sección de Add-ons */}
@@ -373,7 +373,7 @@ const LaPazPackages = () => {
         {/* Sección de Fotolibros */}
         <div className="bg-white p-8 rounded-2xl shadow-lg">
           <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">
-            FOTOLIBROS PREMIUM
+          PREMIUM PHOTOBOOKS
           </h3>
 
           <div className="space-y-6">
@@ -394,7 +394,7 @@ const LaPazPackages = () => {
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          * Tipo de cambio: 1 USD = 12 Bs
+        * Exchange rate: 1 USD = 12 Bs
         </p>
       </div>
       <div>
