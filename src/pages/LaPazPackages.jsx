@@ -229,7 +229,7 @@ const LaPazPackages = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1.5 }}
           >
-            Do you dream of capturing every moment of your wedding in images that will touch your heart forever? 💍📸✨
+            Do you dream of capturing every moment of your wedding in images that will touch your heart forever?
           </motion.p>
         </motion.div>
       </motion.section>
